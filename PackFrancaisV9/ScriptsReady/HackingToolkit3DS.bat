@@ -1,6 +1,8 @@
 @echo off
 title HackingToolkit3DS
 mode con cols=100 lines=30
+IF EXIST "%PROGRAMFILES(x86)%" (SET CtrTool=CtrTool64.exe) ELSE (SET CtrTool=CtrTool32.exe)
+IF EXIST "%PROGRAMFILES(x86)%" (SET MakeRom=MakeRom64.exe) ELSE (SET MakeRom=MakeRom32.exe)
 IF EXIST "%PROGRAMFILES%\HackingToolkit3DS\*.*" GOTO TitleMenu
 IF NOT EXIST "%PROGRAMFILES%\HackingToolkit3DS\*.*" GOTO NoInstalledSetup
 
@@ -17,8 +19,7 @@ echo.
 echo    ##################################################
 echo    #                                                #
 echo    #         HackingToolkit3DS par Asia81           #
-echo    #        Mis … jour le 11/01/2017 (V5.7)         #
-echo    #               asia81.webnode.fr                #
+echo    #         Mis … jour le 03/04/2017 (V9)          #
 echo    #                                                #
 echo    ##################################################
 echo.
@@ -69,27 +70,27 @@ cls
 echo.
 echo Veuillez patienter, extraction en cours...
 echo.
-"3dstool.exe" -xtf 3ds %Rom3DS%.3ds --header HeaderNCCH.bin -0 DecryptedPartition0.bin -1 DecryptedPartition1.bin -2 DecryptedPartition2.bin -6 DecryptedPartition6.bin -7 DecryptedPartition7.bin >NUL 2>NUL
-"3dstool.exe" -xtf cxi DecryptedPartition0.bin --header HeaderNCCH0.bin --exh DecryptedExHeader.bin --exefs DecryptedExeFS.bin --romfs DecryptedRomFS.bin --logo LogoLZ.bin --plain PlainRGN.bin >NUL 2>NUL
-"3dstool.exe" -xtf cfa DecryptedPartition1.bin --header HeaderNCCH1.bin --romfs DecryptedManual.bin >NUL 2>NUL
-"3dstool.exe" -xtf cfa DecryptedPartition2.bin --header HeaderNCCH2.bin --romfs DecryptedDownloadPlay.bin >NUL 2>NUL
-"3dstool.exe" -xtf cfa DecryptedPartition6.bin --header HeaderNCCH6.bin --romfs DecryptedN3DSUpdate.bin >NUL 2>NUL
-"3dstool.exe" -xtf cfa DecryptedPartition7.bin --header HeaderNCCH7.bin --romfs DecryptedO3DSUpdate.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf 3ds %Rom3DS%.3ds --header HeaderNCCH.bin -0 DecryptedPartition0.bin -1 DecryptedPartition1.bin -2 DecryptedPartition2.bin -6 DecryptedPartition6.bin -7 DecryptedPartition7.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf cxi DecryptedPartition0.bin --header HeaderNCCH0.bin --exh DecryptedExHeader.bin --exefs DecryptedExeFS.bin --romfs DecryptedRomFS.bin --logo LogoLZ.bin --plain PlainRGN.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf cfa DecryptedPartition1.bin --header HeaderNCCH1.bin --romfs DecryptedManual.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf cfa DecryptedPartition2.bin --header HeaderNCCH2.bin --romfs DecryptedDownloadPlay.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf cfa DecryptedPartition6.bin --header HeaderNCCH6.bin --romfs DecryptedN3DSUpdate.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf cfa DecryptedPartition7.bin --header HeaderNCCH7.bin --romfs DecryptedO3DSUpdate.bin >NUL 2>NUL
 del DecryptedPartition0.bin >NUL 2>NUL
 del DecryptedPartition1.bin >NUL 2>NUL
 del DecryptedPartition2.bin >NUL 2>NUL
 del DecryptedPartition6.bin >NUL 2>NUL
 del DecryptedPartition7.bin >NUL 2>NUL
-"3dstool.exe" -xtf romfs DecryptedRomFS.bin --romfs-dir ExtractedRomFS >NUL 2>NUL
-"3dstool.exe" -xtf romfs DecryptedManual.bin --romfs-dir ExtractedManual >NUL 2>NUL
-"3dstool.exe" -xtf romfs DecryptedDownloadPlay.bin --romfs-dir ExtractedDownloadPlay >NUL 2>NUL
-"3dstool.exe" -xtf romfs DecryptedN3DSUpdate.bin --romfs-dir ExtractedN3DSUpdate >NUL 2>NUL
-"3dstool.exe" -xtf romfs DecryptedO3DSUpdate.bin --romfs-dir ExtractedO3DSUpdate >NUL 2>NUL
-"3dstool.exe" -%ScriptCode% exefs DecryptedExeFS.bin --exefs-dir ExtractedExeFS --header HeaderExeFS.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf romfs DecryptedRomFS.bin --romfs-dir ExtractedRomFS >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf romfs DecryptedManual.bin --romfs-dir ExtractedManual >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf romfs DecryptedDownloadPlay.bin --romfs-dir ExtractedDownloadPlay >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf romfs DecryptedN3DSUpdate.bin --romfs-dir ExtractedN3DSUpdate >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf romfs DecryptedO3DSUpdate.bin --romfs-dir ExtractedO3DSUpdate >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -%ScriptCode% exefs DecryptedExeFS.bin --exefs-dir ExtractedExeFS --header HeaderExeFS.bin >NUL 2>NUL
 ren ExtractedExeFS\banner.bnr banner.bin >NUL 2>NUL
 ren ExtractedExeFS\icon.icn icon.bin >NUL 2>NUL
 copy ExtractedExeFS\banner.bin banner.bin >NUL 2>NUL
-"3dstool.exe" -x -t banner -f banner.bin --banner-dir ExtractedBanner\ >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -x -t banner -f banner.bin --banner-dir ExtractedBanner\ >NUL 2>NUL
 ren ExtractedBanner\banner0.bcmdl banner.cgfx >NUL 2>NUL
 del banner.bin >NUL 2>NUL
 echo Extraction termin‚e !
@@ -105,23 +106,23 @@ cls
 echo.
 echo Veuillez patienter, reconstruction en cours...
 echo.
-"3dstool.exe" -ctf romfs CustomRomFS.bin --romfs-dir ExtractedRomFS >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf romfs CustomRomFS.bin --romfs-dir ExtractedRomFS >NUL 2>NUL
 ren ExtractedExeFS\banner.bin banner.bnr >NUL 2>NUL
 ren ExtractedExeFS\icon.bin icon.icn >NUL 2>NUL
-"3dstool.exe" -ctf exefs CustomExeFS.bin --exefs-dir ExtractedExeFS --header HeaderExeFS.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf exefs CustomExeFS.bin --exefs-dir ExtractedExeFS --header HeaderExeFS.bin >NUL 2>NUL
 ren ExtractedExeFS\banner.bnr banner.bin >NUL 2>NUL
 ren ExtractedExeFS\icon.icn icon.bin >NUL 2>NUL
-"3dstool.exe" -ctf romfs CustomManual.bin --romfs-dir ExtractedManual >NUL 2>NUL
-"3dstool.exe" -ctf romfs CustomDownloadPlay.bin --romfs-dir ExtractedDownloadPlay >NUL 2>NUL
-"3dstool.exe" -ctf romfs CustomN3DSUpdate.bin --romfs-dir ExtractedN3DSUpdate >NUL 2>NUL
-"3dstool.exe" -ctf romfs CustomO3DSUpdate.bin --romfs-dir ExtractedO3DSUpdate >NUL 2>NUL
-"3dstool.exe" -ctf cxi CustomPartition0.bin --header HeaderNCCH0.bin --exh DecryptedExHeader.bin --exefs CustomExeFS.bin --romfs CustomRomFS.bin --logo LogoLZ.bin --plain PlainRGN.bin >NUL 2>NUL
-"3dstool.exe" -ctf cfa CustomPartition1.bin --header HeaderNCCH1.bin --romfs CustomManual.bin >NUL 2>NUL
-"3dstool.exe" -ctf cfa CustomPartition2.bin --header HeaderNCCH2.bin --romfs CustomDownloadPlay.bin >NUL 2>NUL
-"3dstool.exe" -ctf cfa CustomPartition6.bin --header HeaderNCCH6.bin --romfs CustomN3DSUpdate.bin >NUL 2>NUL
-"3dstool.exe" -ctf cfa CustomPartition7.bin --header HeaderNCCH7.bin --romfs CustomO3DSUpdate.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf romfs CustomManual.bin --romfs-dir ExtractedManual >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf romfs CustomDownloadPlay.bin --romfs-dir ExtractedDownloadPlay >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf romfs CustomN3DSUpdate.bin --romfs-dir ExtractedN3DSUpdate >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf romfs CustomO3DSUpdate.bin --romfs-dir ExtractedO3DSUpdate >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf cxi CustomPartition0.bin --header HeaderNCCH0.bin --exh DecryptedExHeader.bin --exefs CustomExeFS.bin --romfs CustomRomFS.bin --logo LogoLZ.bin --plain PlainRGN.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf cfa CustomPartition1.bin --header HeaderNCCH1.bin --romfs CustomManual.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf cfa CustomPartition2.bin --header HeaderNCCH2.bin --romfs CustomDownloadPlay.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf cfa CustomPartition6.bin --header HeaderNCCH6.bin --romfs CustomN3DSUpdate.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf cfa CustomPartition7.bin --header HeaderNCCH7.bin --romfs CustomO3DSUpdate.bin >NUL 2>NUL
 for %%j in (Custom*.bin) do if %%~zj LEQ 20000 DEL %%j >NUL 2>NUL
-"3dstool.exe" -ctf 3ds %OutputRom3DS%_Edited.3ds --header HeaderNCCH.bin -0 CustomPartition0.bin -1 CustomPartition1.bin -2 CustomPartition2.bin -6 CustomPartition6.bin -7 CustomPartition7.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf 3ds %OutputRom3DS%_Edited.3ds --header HeaderNCCH.bin -0 CustomPartition0.bin -1 CustomPartition1.bin -2 CustomPartition2.bin -6 CustomPartition6.bin -7 CustomPartition7.bin >NUL 2>NUL
 echo Cr‚ation termin‚e !
 echo.
 pause
@@ -138,26 +139,26 @@ cls
 echo.
 echo Veuillez patienter, extraction en cours...
 echo.
-"ctrtool.exe" --content=DecryptedApp %RomCIA%.cia >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" --content=DecryptedApp %RomCIA%.cia >NUL 2>NUL
 ren DecryptedApp.0000.* DecryptedPartition0.bin >NUL 2>NUL
 ren DecryptedApp.0001.* DecryptedPartition1.bin >NUL 2>NUL
 ren DecryptedApp.0002.* DecryptedPartition2.bin >NUL 2>NUL
-"3dstool.exe" -xtf cxi DecryptedPartition0.bin --header HeaderNCCH0.bin --exh DecryptedExHeader.bin --exefs DecryptedExeFS.bin --romfs DecryptedRomFS.bin --logo LogoLZ.bin --plain PlainRGN.bin >NUL 2>NUL
-"3dstool.exe" -xtf cfa DecryptedPartition1.bin --header HeaderNCCH1.bin --romfs DecryptedManual.bin >NUL 2>NUL
-"3dstool.exe" -xtf cfa DecryptedPartition2.bin --header HeaderNCCH2.bin --romfs DecryptedDownloadPlay.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf cxi DecryptedPartition0.bin --header HeaderNCCH0.bin --exh DecryptedExHeader.bin --exefs DecryptedExeFS.bin --romfs DecryptedRomFS.bin --logo LogoLZ.bin --plain PlainRGN.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf cfa DecryptedPartition1.bin --header HeaderNCCH1.bin --romfs DecryptedManual.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf cfa DecryptedPartition2.bin --header HeaderNCCH2.bin --romfs DecryptedDownloadPlay.bin >NUL 2>NUL
 del DecryptedPartition0.bin >NUL 2>NUL
 del DecryptedPartition1.bin >NUL 2>NUL
 del DecryptedPartition2.bin >NUL 2>NUL
-"3dstool.exe" -%ScriptCode% exefs DecryptedExeFS.bin --exefs-dir ExtractedExeFS --header HeaderExeFS.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -%ScriptCode% exefs DecryptedExeFS.bin --exefs-dir ExtractedExeFS --header HeaderExeFS.bin >NUL 2>NUL
 ren ExtractedExeFS\banner.bnr banner.bin >NUL 2>NUL
 ren ExtractedExeFS\icon.icn icon.bin >NUL 2>NUL
 copy ExtractedExeFS\banner.bin banner.bin >NUL 2>NUL
-"3dstool.exe" -x -t banner -f banner.bin --banner-dir ExtractedBanner\ >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -x -t banner -f banner.bin --banner-dir ExtractedBanner\ >NUL 2>NUL
 ren ExtractedBanner\banner0.bcmdl banner.cgfx >NUL 2>NUL
 del banner.bin >NUL 2>NUL
-"3dstool.exe" -xtf romfs DecryptedRomFS.bin --romfs-dir ExtractedRomFS >NUL 2>NUL
-"3dstool.exe" -xtf romfs DecryptedManual.bin --romfs-dir ExtractedManual >NUL 2>NUL
-"3dstool.exe" -xtf romfs DecryptedDownloadPlay.bin --romfs-dir ExtractedDownloadPlay >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf romfs DecryptedRomFS.bin --romfs-dir ExtractedRomFS >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf romfs DecryptedManual.bin --romfs-dir ExtractedManual >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -xtf romfs DecryptedDownloadPlay.bin --romfs-dir ExtractedDownloadPlay >NUL 2>NUL
 echo Extraction termin‚e !
 echo.
 pause
@@ -172,22 +173,22 @@ set /p MicroVer="Entrez la version micro pour le .CIA (Entrez 0 si vous ne savez
 echo.
 echo Veuillez patienter, reconstruction en cours...
 echo.
-"3dstool.exe" -ctf romfs CustomRomFS.bin --romfs-dir ExtractedRomFS >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf romfs CustomRomFS.bin --romfs-dir ExtractedRomFS >NUL 2>NUL
 ren ExtractedExeFS\banner.bin banner.bnr >NUL 2>NUL
 ren ExtractedExeFS\icon.bin icon.icn >NUL 2>NUL
-"3dstool.exe" -ctf exefs CustomExeFS.bin --exefs-dir ExtractedExeFS --header HeaderExeFS.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf exefs CustomExeFS.bin --exefs-dir ExtractedExeFS --header HeaderExeFS.bin >NUL 2>NUL
 ren ExtractedExeFS\banner.bnr banner.bin >NUL 2>NUL
 ren ExtractedExeFS\icon.icn icon.bin >NUL 2>NUL
-"3dstool.exe" -ctf romfs CustomManual.bin --romfs-dir ExtractedManual >NUL 2>NUL
-"3dstool.exe" -ctf romfs CustomDownloadPlay.bin --romfs-dir ExtractedDownloadPlay >NUL 2>NUL
-"3dstool.exe" -ctf cxi CustomPartition0.bin --header HeaderNCCH0.bin --exh DecryptedExHeader.bin --exefs CustomExeFS.bin --romfs CustomRomFS.bin --logo LogoLZ.bin --plain PlainRGN.bin >NUL 2>NUL
-"3dstool.exe" -ctf cfa CustomPartition1.bin --header HeaderNCCH1.bin --romfs CustomManual.bin >NUL 2>NUL
-"3dstool.exe" -ctf cfa CustomPartition2.bin --header HeaderNCCH2.bin --romfs CustomDownloadPlay.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf romfs CustomManual.bin --romfs-dir ExtractedManual >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf romfs CustomDownloadPlay.bin --romfs-dir ExtractedDownloadPlay >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf cxi CustomPartition0.bin --header HeaderNCCH0.bin --exh DecryptedExHeader.bin --exefs CustomExeFS.bin --romfs CustomRomFS.bin --logo LogoLZ.bin --plain PlainRGN.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf cfa CustomPartition1.bin --header HeaderNCCH1.bin --romfs CustomManual.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -ctf cfa CustomPartition2.bin --header HeaderNCCH2.bin --romfs CustomDownloadPlay.bin >NUL 2>NUL
 for %%j in (Custom*.bin) do if %%~zj LEQ 20000 DEL %%j >NUL 2>NUL
 IF EXIST CustomPartition0.bin (SET ARG0=-content CustomPartition0.bin:0:0x00) >NUL 2>NUL
 IF EXIST CustomPartition1.bin (SET ARG1=-content CustomPartition1.bin:1:0x01) >NUL 2>NUL
 IF EXIST CustomPartition2.bin (SET ARG2=-content CustomPartition2.bin:2:0x02) >NUL 2>NUL
-"MakeRom.exe" -f cia %ARG0% %ARG1% %ARG2% -minor %MinorVer% -micro %MicroVer% -o %OutputRomCIA%_Edited.cia
+"%PROGRAMFILES%\HackingToolkit3DS\%MakeRom%" -f cia %ARG0% %ARG1% %ARG2% -minor %MinorVer% -micro %MicroVer% -o %OutputRomCIA%_Edited.cia
 echo Cr‚ation termin‚e !
 echo.
 pause
@@ -204,11 +205,11 @@ cls
 echo.
 echo Veuillez patienter, extraction en cours...
 echo.
-"ctrtool.exe" -p --ncch=0 --exheader=DecryptedExHeader.bin %RomCXI%.cxi >NUL 2>NUL
-"ctrtool.exe" -p --ncch=0 --exefs=DecryptedExeFS.bin %RomCXI%.cxi >NUL 2>NUL
-"ctrtool.exe" -p --ncch=0 --romfs=DecryptedRomFS.bin %RomCXI%.cxi >NUL 2>NUL
-"ctrtool.exe" -t romfs --romfsdir=./ExtractedRomFS DecryptedRomFS.bin >NUL 2>NUL
-"ctrtool.exe" -t exefs --exefsdir=./ExtractedExeFS DecryptedExeFS.bin %DC% >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -p --ncch=0 --exheader=DecryptedExHeader.bin %RomCXI%.cxi >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -p --ncch=0 --exefs=DecryptedExeFS.bin %RomCXI%.cxi >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -p --ncch=0 --romfs=DecryptedRomFS.bin %RomCXI%.cxi >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -t romfs --romfsdir=./ExtractedRomFS DecryptedRomFS.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -t exefs --exefsdir=./ExtractedExeFS DecryptedExeFS.bin %DC% >NUL 2>NUL
 echo Extraction termin‚e !
 echo.
 pause
@@ -225,6 +226,7 @@ goto:TitleMenu
 cls
 echo.
 echo D‚compresser tous les fichiers code.bin des .3DS en 1 seule fois, ou demander pour chacun ?
+echo.
 echo 1 = D‚compresser 
 echo 2 = Ne rien d‚compresser
 echo 3 = Choisir au cas par cas
@@ -237,21 +239,21 @@ IF /i "%DecompressCode%"=="3" GOTO Unpack3DSAsk
 :Unpack3DSYes
 cls
 echo.
-FOR %%x in (*.3ds *.app *.cci) DO CALL "Unpack3DSYes.bat" "%%x"
+FOR %%x in (*.3ds *.app *.cci) DO CALL "%PROGRAMFILES%\HackingToolkit3DS\Unpack3DSYes.bat" "%%x"
 FOR %%x in (*.cia) DO GOTO UnpackCIAMenu
 goto:TitleMenu
 
 :Unpack3DSNo
 cls
 echo.
-FOR %%x in (*.3ds *.app *.cci) DO CALL "Unpack3DSNo.bat" "%%x"
+FOR %%x in (*.3ds *.app *.cci) DO CALL "%PROGRAMFILES%\HackingToolkit3DS\Unpack3DSNo.bat" "%%x"
 for %%x in (*.cia) DO GOTO UnpackCIAMenu
 goto:TitleMenu
 
 :Unpack3DSAsk
 cls
 echo.
-FOR %%x in (*.3ds *.app *.cci) DO CALL "Unpack3DSAsk.bat" "%%x"
+FOR %%x in (*.3ds *.app *.cci) DO CALL "%PROGRAMFILES%\HackingToolkit3DS\Unpack3DSAsk.bat" "%%x"
 FOR %%x in (*.cia) DO GOTO UnpackCIAMenu
 goto:TitleMenu
 
@@ -259,6 +261,7 @@ goto:TitleMenu
 cls
 echo.
 echo D‚compresser tous les fichiers code.bin des .CIA en 1 seule fois, ou demander pour chacun ?
+echo.
 echo 1 = D‚compresser 
 echo 2 = Ne rien d‚compresser
 echo 3 = Choisir au cas par cas
@@ -271,26 +274,26 @@ IF /i "%DecompressCode%"=="3" GOTO UnpackCIAAsk
 :UnpackCIAYes
 cls
 echo.
-FOR %%x in (*.cia) DO CALL "UnpackCIAYes.bat" "%%x"
+FOR %%x in (*.cia) DO CALL "%PROGRAMFILES%\HackingToolkit3DS\UnpackCIAYes.bat" "%%x"
 goto:TitleMenu
 
 :UnpackCIANo
 cls
 echo.
-FOR %%x in (*.cia) DO CALL "UnpackCIANo.bat" "%%x"
+FOR %%x in (*.cia) DO CALL "%PROGRAMFILES%\HackingToolkit3DS\UnpackCIANo.bat" "%%x"
 goto:TitleMenu
 
 :UnpackCIAAsk
 cls
 echo.
-FOR %%x in (*.cia) DO CALL "UnpackCIAAsk.bat" "%%x"
+FOR %%x in (*.cia) DO CALL "%PROGRAMFILES%\HackingToolkit3DS\UnpackCIAAsk.bat" "%%x"
 goto:TitleMenu
 
 :MassRebuilder
 cls
 echo.
-FOR /D %%D in (*.3ds *.app *.cci) DO CALL "Repack3DS.bat" "%%~nD"
-FOR /D %%D in (*.cia) DO CALL "RepackCIA.bat" "%%~nD"
+FOR /D %%D in (*.3ds *.app *.cci) DO CALL "%PROGRAMFILES%\HackingToolkit3DS\Repack3DS.bat" "%%~nD"
+FOR /D %%D in (*.cia) DO CALL "%PROGRAMFILES%\HackingToolkit3DS\RepackCIA.bat" "%%~nD"
 goto:TitleMenu
 
 :DecryptedBanner
@@ -303,7 +306,7 @@ if /i %Partition%==2 GOTO RebuildBanner
 :ExtractBanner
 cls
 echo.
-"3dstool.exe" -x -t banner -f banner.bin --banner-dir ExtractedBanner\ >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -x -t banner -f banner.bin --banner-dir ExtractedBanner\ >NUL 2>NUL
 ren ExtractedBanner\banner0.bcmdl banner.cgfx >NUL 2>NUL
 echo BanniŠre extraite !
 echo.
@@ -314,7 +317,7 @@ goto:TitleMenu
 cls
 echo.
 ren ExtractedBanner\banner.cgfx banner0.bcmdl >NUL 2>NUL
-"3dstool.exe" -c -t banner -f banner.bin --banner-dir ExtractedBanner\ >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -c -t banner -f banner.bin --banner-dir ExtractedBanner\ >NUL 2>NUL
 ren ExtractedBanner\banner0.bcmdl banner.cgfx >NUL 2>NUL
 echo BanniŠre cr‚‚e !
 echo.
@@ -344,7 +347,7 @@ cls
 echo.
 set /p FileName=Entrez le nom du fichier App ou 3DS d‚crypt‚ (Extension comprise) : 
 cls
-"ctrtool.exe" -p --ncch=0 --exheader=DecryptedExHeader.bin %FileName% >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -p --ncch=0 --exheader=DecryptedExHeader.bin %FileName% >NUL 2>NUL
 echo.
 echo Extraction termin‚e !
 echo.
@@ -358,7 +361,7 @@ set /p FileName="Entrez le nom du fichier d‚crypt‚ (Extension comprise) : "
 cls
 echo.
 echo Veuillez patienter, extraction en cours...
-"ctrtool.exe" -p --ncch=0 --exefs=DecryptedExeFS.bin %FileName% >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -p --ncch=0 --exefs=DecryptedExeFS.bin %FileName% >NUL 2>NUL
 echo.
 set /p Ask2Extract=Termin‚ ! Souhaitez-vous l'extraire (n/o) ? 
 if /i %Ask2Extract%==o GOTO ExtractExeFS
@@ -371,7 +374,7 @@ set /p FileName="Entrez le nom du fichier d‚crypt‚ (Extension comprise) : "
 cls
 echo.
 echo Veuillez patienter, extraction en cours...
-"ctrtool.exe" -p --ncch=0 --romfs=DecryptedRomFS.bin %FileName% >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -p --ncch=0 --romfs=DecryptedRomFS.bin %FileName% >NUL 2>NUL
 echo.
 set /p Ask2Extract=Termin‚ ! Souhaitez-vous l'extraire (n/o) ? 
 if /i %Ask2Extract%==o GOTO ExtractRomFS
@@ -384,7 +387,7 @@ set /p FileName="Entrez le nom du fichier d‚crypt‚ (Extension comprise) : "
 cls
 echo.
 echo Veuillez patienter, extraction en cours...
-"ctrtool.exe" -p --ncch=1 --romfs=DecryptedManual.bin %FileName% >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -p --ncch=1 --romfs=DecryptedManual.bin %FileName% >NUL 2>NUL
 echo.
 set /p Ask2Extract=Termin‚ ! Souhaitez-vous l'extraire (n/o) ? 
 if /i %Ask2Extract%==o GOTO ExtractManual
@@ -397,7 +400,7 @@ set /p FileName="Entrez le nom du fichier d‚crypt‚ (Extension comprise) : "
 cls
 echo.
 echo Veuillez patienter, extraction en cours...
-"ctrtool.exe" -p --ncch=2 --romfs=DecryptedDownloadPlay.bin %FileName% >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -p --ncch=2 --romfs=DecryptedDownloadPlay.bin %FileName% >NUL 2>NUL
 echo.
 set /p Ask2Extract=Termin‚ ! Souhaitez-vous l'extraire (n/o) ? 
 if /i %Ask2Extract%==o GOTO ExtractDownloadPlay
@@ -410,7 +413,7 @@ set /p FileName="Entrez le nom du fichier d‚crypt‚ (Extension comprise) : "
 cls
 echo.
 echo Veuillez patienter, extraction en cours...
-"ctrtool.exe" -p --ncch=6 --romfs=DecryptedN3DSUpdate.bin %FileName% >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -p --ncch=6 --romfs=DecryptedN3DSUpdate.bin %FileName% >NUL 2>NUL
 echo.
 set /p Ask2Extract=Termin‚ ! Souhaitez-vous l'extraire (n/o) ? 
 if /i %Ask2Extract%==o GOTO ExtractN3DSUpdate
@@ -423,7 +426,7 @@ set /p FileName="Entrez le nom du fichier d‚crypt‚ (Extension comprise) : "
 cls
 echo.
 echo Veuillez patienter, extraction en cours...
-"ctrtool.exe" -p --ncch=7 --romfs=DecryptedO3DSUpdate.bin %FileName% >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -p --ncch=7 --romfs=DecryptedO3DSUpdate.bin %FileName% >NUL 2>NUL
 echo.
 set /p Ask2Extract=Termin‚ ! Souhaitez-vous l'extraire (n/o) ? 
 if /i %Ask2Extract%==o GOTO ExtractO3DSUpdate
@@ -456,10 +459,10 @@ cls
 echo.
 echo Veuillez patienter, extraction en cours...
 if /i "%DecompressCode%"=="O" (SET DC=--decompresscode) ELSE (SET DC=)
-"ctrtool.exe" -t exefs --exefsdir=./ExtractedExeFS DecryptedExeFS.bin %DC% >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -t exefs --exefsdir=./ExtractedExeFS DecryptedExeFS.bin %DC% >NUL 2>NUL
 del ExtractedExeFS\.bin >NUL 2>NUL
 copy ExtractedExeFS\banner.bin banner.bin >NUL 2>NUL
-"3dstool.exe" -x -t banner -f banner.bin --banner-dir ExtractedBanner\ >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\3dstool.exe" -x -t banner -f banner.bin --banner-dir ExtractedBanner\ >NUL 2>NUL
 ren ExtractedBanner\banner0.bcmdl banner.cgfx >NUL 2>NUL
 del banner.bin >NUL 2>NUL
 echo.
@@ -472,7 +475,7 @@ goto:TitleMenu
 cls
 echo.
 echo Veuillez patienter, extraction en cours...
-"ctrtool.exe" -t romfs --romfsdir=./ExtractedRomFS DecryptedRomFS.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -t romfs --romfsdir=./ExtractedRomFS DecryptedRomFS.bin >NUL 2>NUL
 echo.
 echo Extraction termin‚e !
 echo.
@@ -483,7 +486,7 @@ goto:TitleMenu
 cls
 echo.
 echo Veuillez patienter, extraction en cours...
-"ctrtool.exe" -t romfs --romfsdir=./ExtractedManual DecryptedManual.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -t romfs --romfsdir=./ExtractedManual DecryptedManual.bin >NUL 2>NUL
 echo.
 echo Extraction termin‚e !
 echo.
@@ -494,7 +497,7 @@ goto:TitleMenu
 cls
 echo.
 echo Veuillez patienter, extraction en cours...
-"ctrtool.exe" -t romfs --romfsdir=./ExtractedDownloadPlay DecryptedDownloadPlay.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -t romfs --romfsdir=./ExtractedDownloadPlay DecryptedDownloadPlay.bin >NUL 2>NUL
 echo.
 echo Extraction termin‚e !
 echo.
@@ -505,7 +508,7 @@ goto:TitleMenu
 cls
 echo.
 echo Veuillez patienter, extraction en cours...
-"ctrtool.exe" -t romfs --romfsdir=./ExtractedO3DSUpdate DecryptedO3DSUpdate.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -t romfs --romfsdir=./ExtractedO3DSUpdate DecryptedO3DSUpdate.bin >NUL 2>NUL
 echo.
 echo Extraction termin‚e !
 echo.
@@ -516,7 +519,7 @@ goto:TitleMenu
 cls
 echo.
 echo Veuillez patienter, extraction en cours...
-"ctrtool.exe" -t romfs --romfsdir=./ExtractedN3DSUpdate DecryptedN3DSUpdate.bin >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" -t romfs --romfsdir=./ExtractedN3DSUpdate DecryptedN3DSUpdate.bin >NUL 2>NUL
 echo.
 echo Extraction termin‚e !
 echo.
@@ -525,20 +528,20 @@ goto:TitleMenu
 
 :3DSBuilder
 cls
-start "" "3DSBuilder.exe"
+start "" "%PROGRAMFILES%\HackingToolkit3DS\3DSBuilder.exe"
 goto:TitleMenu
 
 :PokemonPatchPointerTool
 cls
-start "" "PokemonPatchPointerTool.exe"
+start "" "%PROGRAMFILES%\HackingToolkit3DS\PokemonPatchPointerTool.exe"
 goto:TitleMenu
 
 :RomFSBuilder
 cls
-start "" "RomFSBuilder.exe"
+start "" "%PROGRAMFILES%\HackingToolkit3DS\RomFSBuilder.exe"
 goto:TitleMenu
 
 :RomFSExtractor
 cls
-start "" "RomFSExtractor.exe"
+start "" "%PROGRAMFILES%\HackingToolkit3DS\RomFSExtractor.exe"
 goto:TitleMenu

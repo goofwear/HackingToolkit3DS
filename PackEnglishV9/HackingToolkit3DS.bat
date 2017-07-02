@@ -1,6 +1,8 @@
 @echo off
 title HackingToolkit3DS
 mode con cols=100 lines=30
+IF EXIST "%PROGRAMFILES(x86)%" (SET CtrTool=CtrTool64.exe) ELSE (SET CtrTool=CtrTool32.exe)
+IF EXIST "%PROGRAMFILES(x86)%" (SET MakeRom=MakeRom64.exe) ELSE (SET MakeRom=MakeRom32.exe)
 IF EXIST "%PROGRAMFILES%\HackingToolkit3DS\*.*" GOTO TitleMenu
 IF NOT EXIST "%PROGRAMFILES%\HackingToolkit3DS\*.*" GOTO NoInstalledSetup
 
@@ -16,9 +18,8 @@ cls
 echo.
 echo    ##################################################
 echo    #                                                #
-echo    #         HackingToolkit3DS by Asia81            #
-echo    #          Updated: 01/11/2017 (V5.7)            #
-echo    #               asia81.webnode.fr                #
+echo    #          HackingToolkit3DS by Asia81           #
+echo    #            Updated: 04/03/2017 (V9)            #
 echo    #                                                #
 echo    ##################################################
 echo.

@@ -1,17 +1,18 @@
 @echo off
+IF EXIST "%PROGRAMFILES(x86)%" (SET CtrTool=CtrTool64.exe) ELSE (SET CtrTool=CtrTool32.exe)
 cls
 echo.
 set CiaName=%~n1
 set CiaExt=%~x1
 set CiaFull=%CiaName%%CiaExt%
-set /p DecompressCode="Decompress the code.bin file for "%CiaFull%" (n/y)? : "
-if /i "%DecompressCode%"=="Y" (SET ScriptCode=xutf) ELSE (SET ScriptCode=xtf)
+set /p DecompressCode="D‚compresser le fichier code.bin pour "%CiaFull%" (n/o)? : "
+if /i "%DecompressCode%"=="O" (SET ScriptCode=xutf) ELSE (SET ScriptCode=xtf)
 cls
 echo.
-echo Please wait, extraction of "%CiaFull%" in progress...
+echo Veuillez patienter, extraction de "%CiaFull%" en cours...
 echo.
 md %1_Unpacked >NUL 2>NUL
-"%PROGRAMFILES%\HackingToolkit3DS\ctrtool.exe" --content=%1_Unpacked/DecryptedApp %1 >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%CtrTool%" --content=%1_Unpacked/DecryptedApp %1 >NUL 2>NUL
 ren %1_Unpacked\DecryptedApp.0000.* DecryptedPartition0.bin >NUL 2>NUL
 ren %1_Unpacked\DecryptedApp.0001.* DecryptedPartition1.bin >NUL 2>NUL
 ren %1_Unpacked\DecryptedApp.0002.* DecryptedPartition2.bin >NUL 2>NUL

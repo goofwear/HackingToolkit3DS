@@ -1,4 +1,6 @@
 @echo off
+IF EXIST "%PROGRAMFILES(x86)%" (SET CtrTool=CtrTool64.exe) ELSE (SET CtrTool=CtrTool32.exe)
+IF EXIST "%PROGRAMFILES(x86)%" (SET MakeRom=MakeRom64.exe) ELSE (SET MakeRom=MakeRom32.exe)
 cls
 echo.
 set CiaName=%~n1
@@ -21,4 +23,4 @@ for %%j in (%CiaFull%_Unpacked\Custom*.bin) do if %%~zj LEQ 20000 DEL %%j >NUL 2
 IF EXIST %CiaFull%_Unpacked\CustomPartition0.bin (SET ARG0=-content %CiaFull%_Unpacked\CustomPartition0.bin:0:0x00) >NUL 2>NUL
 IF EXIST %CiaFull%_Unpacked\CustomPartition1.bin (SET ARG1=-content %CiaFull%_Unpacked\CustomPartition1.bin:1:0x01) >NUL 2>NUL
 IF EXIST %CiaFull%_Unpacked\CustomPartition2.bin (SET ARG2=-content %CiaFull%_Unpacked\CustomPartition2.bin:2:0x02) >NUL 2>NUL
-"%PROGRAMFILES%\HackingToolkit3DS\MakeRom.exe" -f Cia %ARG0% %ARG1% %ARG2% -o %CiaName%_Edited.Cia >NUL 2>NUL
+"%PROGRAMFILES%\HackingToolkit3DS\%MakeRom%" -f Cia %ARG0% %ARG1% %ARG2% -o %CiaName%_Edited.cia >NUL 2>NUL
